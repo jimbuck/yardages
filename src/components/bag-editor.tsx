@@ -19,9 +19,9 @@ export function BagEditor({ }: {}) {
     <Card className="w-full max-w-4xl">
       <CardHeader>
         <CardTitle>
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-between">
             Yardage Chart
-            <Button variant="outline" size="icon" onClick={() => removeBag(bag)}>
+            <Button variant="destructive-outline" size="icon" onClick={() => removeBag(bag)}>
               <TrashIcon className="h-4 w-4" />
               <span className="sr-only">Remove club</span>
             </Button>
@@ -69,7 +69,7 @@ export function BagEditor({ }: {}) {
                 </div>
                 <div className="grid gap-2">
                   {index === 0 && <Label htmlFor={`delete-club-${index}`}>&nbsp;</Label>}
-                  <Button variant="outline" size="icon" onClick={() => removeClub(club)}>
+                  <Button variant="destructive-outline" size="icon" onClick={() => removeClub(club)}>
                     <TrashIcon className="h-4 w-4" />
                     <span className="sr-only">Remove club</span>
                   </Button>
@@ -84,11 +84,12 @@ export function BagEditor({ }: {}) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
+        <Button variant="secondary">Sort By Yardage</Button>
         <Button variant="outline" onClick={printChart}>
           <PrinterIcon className="h-4 w-4 mr-2" />
           Print Chart
         </Button>
-        <Button>Generate Chart</Button>
+        
       </CardFooter>
     </Card>
   )

@@ -6,47 +6,40 @@ import { Club, GolfBag } from '@/models';
 export function YardageChart({ bag }: { bag: GolfBag }) {
 	
 	return (<>
-		<div className="printable hidden print:block">
+		<div className="printable hidden print:block p-16">
 			<table className="table-auto w-full">
 				<thead>
-					<tr className="text-2xl bg-primary text-primary-foreground">
-						<th className="border" colSpan={4}>Yardage Chart</th>
+					<tr className="text-lg text-primary">
+						<th className="border" colSpan={4}>{bag.name}</th>
 					</tr>
 					<tr className='text-primary'>
-						<th className="border text-xl bg-zinc-600">Club</th>
-						<th className="border text-xl bg-zinc-600">Yardage</th>
-						<th className="border text-xl bg-zinc-600">Diff</th>
-						<th className="border text-xl bg-zinc-600">Notes</th>
+						<th className="border bg-zinc-600 px-2">Club</th>
+						<th className="border bg-zinc-600 px-2">Yards</th>
+						<th className="border bg-zinc-600 px-2">Diff</th>
 					</tr>
 				</thead>
 				<tbody>
 					{bag.clubs.map((club, i) => (
 						<tr key={i}>
-							<td className="border">{club.name}</td>
-							<td className="border">
+							<td className="border px-2">{club.name}</td>
+							<td className="border px-2">
 								<ClubDist currClub={club} />
 							</td>
-							<td className="border relative overflow-visible">
-								<div className={`absolute -top-3 bg-white w-full border-r ${i > 0 ? 'border-b' : ''} ${i === 1 ? 'border-t' : ''}`}>
+							<td className="border pr-4 relative overflow-visible border-r-0 border-b-0">
+								<div className={`absolute -top-3 text-right text-primary/60 bg-white w-full border-r ${i > 0 ? 'border-b' : ''} ${i === 1 ? 'border-t' : ''}`}>
 									<ClubDiff prevClub={bag.clubs[i - 1]} currClub={club} />
 								</div>
 							</td>
-							<td className="border"></td>
 						</tr>
 					))}
 				</tbody>
-				<tfoot>
-					<tr>
-						<td className="border" colSpan={4}>Remember:</td>
-					</tr>
-				</tfoot>
 			</table>
 		</div>
 	</>);
 }
 
 function ClubDist({ currClub }: { currClub: Club }) {
-	return (<>{[currClub.carry, currClub.total].filter(Boolean).join(' / ')}</>)
+	return (<>{[currClub.carry, currClub.total].filter(Boolean).join('/')}</>)
 }
 
 function ClubDiff({ prevClub, currClub }: { prevClub: Club | undefined, currClub: Club }) {
@@ -56,7 +49,7 @@ function ClubDiff({ prevClub, currClub }: { prevClub: Club | undefined, currClub
 	const totalDiff = currClub.total && prevClub.total ? prevClub.total - currClub.total : undefined;
 
 	return (<>&nbsp;{[
-		(carryDiff && carryDiff > 0 ? ('+' + carryDiff) : carryDiff),
-		(totalDiff && totalDiff > 0 ? ('+' + totalDiff) : totalDiff),
-	].filter(Boolean).join(' / ')}</>)
+		(typeof carryDiff === 'number' && carryDiff >= 0 ? ('+' + carryDiff) : carryDiff),
+		(typeof totalDiff === 'number' && totalDiff >= 0 ? ('+' + totalDiff) : totalDiff),
+	].filter(Boolean).join('/')}</>);
 }
