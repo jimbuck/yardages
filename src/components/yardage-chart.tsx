@@ -1,13 +1,17 @@
 "use client";
 
-import { Club, GolfBag } from '@/models';
+import { useGolfBag } from '@/hooks/golf-bags-hook';
+import { Club } from '@/models';
 
 
-export function YardageChart({ bag }: { bag: GolfBag }) {
+export function YardageChart({ bagId }: { bagId: string }) {
+	const { bag } = useGolfBag(bagId);
+
+	if (!bag) return (<></>);
 
 	return (<>
-		<div className="printable hidden print:block p-16">
-			<table className="table-auto w-full">
+		<div className="p-2 pt-4 break-inside-avoid-page">
+			<table className="table-auto w-80">
 				<thead>
 					<tr className="text-lg text-primary">
 						<th className="border" colSpan={4}>{bag.name}</th>
@@ -20,13 +24,13 @@ export function YardageChart({ bag }: { bag: GolfBag }) {
 				</thead>
 				<tbody>
 					{bag.clubs.map((club, i) => (
-						<tr key={i}>
+						<tr key={i} className="relative">
 							<td className="border px-2">{club.name}</td>
 							<td className="border px-2">
 								<ClubDist currClub={club} />
 							</td>
 							<td className="border pr-4 relative overflow-visible border-r-0 border-b-0">
-								<div className={`absolute -top-3 pr-2 text-right text-primary/60 bg-white w-full border-r ${i > 0 ? 'border-b' : ''} ${i === 1 ? 'border-t' : ''}`}>
+								<div className={`absolute left-0 -top-3 pr-2 text-right text-primary/60 bg-white w-full border-r ${i > 0 ? 'border-b' : ''} ${i === 1 ? 'border-t' : ''}`}>
 									<ClubDiff prevClub={bag.clubs[i - 1]} currClub={club} />
 								</div>
 							</td>

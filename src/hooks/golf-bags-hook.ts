@@ -1,24 +1,18 @@
 "use client";
 
-import { atom } from 'jotai';
 import { useAtom } from 'jotai/react';
 import { atomWithStorage } from 'jotai/utils';
+import { useRouter } from 'next/navigation'
 
 import { Club, GolfBag, STANDARD_CLUBS } from '@/models';
 import { randId } from '@/lib/utils';
 
-const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', []);
-const activeBagIdAtom = atomWithStorage<string | undefined>('golf-yardage-chart:active-bag', undefined);
-export const activeBagAtom = atom(get => {
-	const bags = get(golfBagsAtom);
-	let id = get(activeBagIdAtom);
-	return typeof id === 'undefined' ? undefined : bags.find(b => b.id === id);
-});
+export const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', []);
 
 export function useGolfBags() {
 	const [bags, setBags] = useAtom(golfBagsAtom);
-	const [activeBag] = useAtom(activeBagAtom);
-	const [activeBagId, setActiveBagId] = useAtom(activeBagIdAtom);
+
+	const router = useRouter();
 
 	const addBag = (bag?: GolfBag) => {
 		if (!bag) bag = {
@@ -27,21 +21,24 @@ export function useGolfBags() {
 			clubs: STANDARD_CLUBS.map(c => ({ id: randId(), name: c.name, carry: c.averageCarry })),
 		};
 
+		router.push(`/${bag.id}`);
 		setBags([...bags, bag]);
-		if (!activeBag) setActiveBagId(bag.id);
 	};
-	const removeBag = (bag: GolfBag) => {
-		const index = bags.findIndex((b) => b.id === bag.id);
-		let updatedBags = bags.filter((b) => b.id !== bag.id);
-		setBags(updatedBags);
-		const nextBag = updatedBags[Math.max(index - 1, 0)];
-		if (nextBag) setActiveBagId(nextBag.id);
-	};
+	const removeBag = (bag: GolfBag, isCurrentBag: boolean) => {
+		const updatedBags = bags.filter((b) => b.id !== bag.id);
 
-	const chooseBag = (bag: GolfBag | string) => {
-		if (typeof bag !== 'string') bag = bag.id;
+		if (isCurrentBag) {
+			const index = bags.findIndex((b) => b.id === bag.id);
+			const nextBag = updatedBags[Math.max(index - 1, 0)];
+			if (nextBag) {
+				console.log(`Redirecting to bag ${nextBag.id}`);
+				router.replace(`/${nextBag.id}`);
+			}
 
-		setActiveBagId(bag);
+			setTimeout(() => setBags(updatedBags), 100);
+		} else {
+			setBags(updatedBags)
+		}
 	};
 
 	const updateBag = (updatedBag: GolfBag) => {
@@ -51,12 +48,12 @@ export function useGolfBags() {
 		setBags(updatedBags);
 	};
 
-	return { bags, activeBag, chooseBag, updateBag, addBag, removeBag };
+	return { bags, updateBag, addBag, removeBag };
 }
 
-export function useGolfBag() {
+export function useGolfBag(bagId?: string) {
 	const [bags, setBags] = useAtom(golfBagsAtom);
-	const [bag] = useAtom(activeBagAtom);
+	const bag = bags.find(b => b.id === bagId);
 
 	return { bag, setBagName, addClub, updateClub, removeClub };
 

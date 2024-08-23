@@ -15,14 +15,14 @@ const store = createStore();
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-hidden">
       <JotaiProvider store={store}>
-        <body className={`${inter.className} flex flex-row h-screen`}>
+        <body className={`${inter.className} flex flex-row h-svh`}>
           <div className="flex-initial">
             <SideNav />
           </div>
-          <main className="flex flex-col items-center justify-center h-full mx-auto">
-            {children}
+          <main className="flex-grow overflow-y-scroll">
+            <div className="h-dvh mx-auto">{children}</div>
           </main>
         </body>
       </JotaiProvider>

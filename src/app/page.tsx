@@ -1,32 +1,12 @@
 "use client";
 
-import { BagEditor } from '@/components/bag-editor';
-import { YardageChart } from '@/components/yardage-chart';
-import { useGolfBag } from '@/hooks/golf-bags-hook';
+import { useGolfBags } from '@/hooks/golf-bags-hook';
 
-export default function Home({ }: {}) {
+export default function Home() {
+  const { bags } = useGolfBags();
 
-  const { bag } = useGolfBag();
+  if (!bags.length) return (<p>Add a bag to get started.</p>);
 
-  if (!bag) {
-    return (
-      <div className="flex flex-row">
-        <div>
-          <p>Add a bag to get started.</p>
-        </div>
-      </div>
-    );
-  }
 
-  return (
-    <div className="flex flex-row">
-      <div>
-        <BagEditor />
-      </div>
-      <div className="">
-        { bag && <YardageChart bag={bag} />}
-      </div>
-    </div>
-
-  );
+  return (<p>Select a bag to get started.</p>);
 }
