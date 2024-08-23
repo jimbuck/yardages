@@ -4,7 +4,7 @@ import { Club, GolfBag } from '@/models';
 
 
 export function YardageChart({ bag }: { bag: GolfBag }) {
-	
+
 	return (<>
 		<div className="printable hidden print:block p-16">
 			<table className="table-auto w-full">
@@ -26,7 +26,7 @@ export function YardageChart({ bag }: { bag: GolfBag }) {
 								<ClubDist currClub={club} />
 							</td>
 							<td className="border pr-4 relative overflow-visible border-r-0 border-b-0">
-								<div className={`absolute -top-3 text-right text-primary/60 bg-white w-full border-r ${i > 0 ? 'border-b' : ''} ${i === 1 ? 'border-t' : ''}`}>
+								<div className={`absolute -top-3 pr-2 text-right text-primary/60 bg-white w-full border-r ${i > 0 ? 'border-b' : ''} ${i === 1 ? 'border-t' : ''}`}>
 									<ClubDiff prevClub={bag.clubs[i - 1]} currClub={club} />
 								</div>
 							</td>

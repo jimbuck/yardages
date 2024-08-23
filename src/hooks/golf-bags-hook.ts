@@ -4,50 +4,66 @@ import { atom } from 'jotai';
 import { useAtom } from 'jotai/react';
 import { atomWithStorage } from 'jotai/utils';
 
-import { Club, GolfBag } from '@/models';
+import { Club, GolfBag, STANDARD_CLUBS } from '@/models';
+import { randId } from '@/lib/utils';
 
-const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', [{ name: 'Bag 1', clubs: [] }]);
-const activeBagIndexAtom = atomWithStorage<number>('golf-yardage-chart:active-bag', 0);
-const activeBagAtom = atom(get => {
+const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', []);
+const activeBagIdAtom = atomWithStorage<string | undefined>('golf-yardage-chart:active-bag', undefined);
+export const activeBagAtom = atom(get => {
 	const bags = get(golfBagsAtom);
-	let index = get(activeBagIndexAtom);
-	if (index >= bags.length) index = 0;
-	return bags[index];
+	let id = get(activeBagIdAtom);
+	return typeof id === 'undefined' ? undefined : bags.find(b => b.id === id);
 });
 
 export function useGolfBags() {
 	const [bags, setBags] = useAtom(golfBagsAtom);
 	const [activeBag] = useAtom(activeBagAtom);
-	const [activeBagIndex, setActiveBagIndex] = useAtom(activeBagIndexAtom);
+	const [activeBagId, setActiveBagId] = useAtom(activeBagIdAtom);
 
-	const addBag = (bag: GolfBag = { name: `Bag ${bags.length + 1}`, clubs: [] }) => {
+	const addBag = (bag?: GolfBag) => {
+		if (!bag) bag = {
+			id: randId(),
+			name: `Bag ${bags.length + 1}`,
+			clubs: STANDARD_CLUBS.map(c => ({ id: randId(), name: c.name, carry: c.averageCarry })),
+		};
+
 		setBags([...bags, bag]);
+		if (!activeBag) setActiveBagId(bag.id);
 	};
 	const removeBag = (bag: GolfBag) => {
-		let updatedBags = bags.filter((b) => b !== bag);
-		if (updatedBags.length === 0) updatedBags = [{ name: 'Bag 1', clubs: [] }];
+		const index = bags.findIndex((b) => b.id === bag.id);
+		let updatedBags = bags.filter((b) => b.id !== bag.id);
+		setBags(updatedBags);
+		const nextBag = updatedBags[Math.max(index - 1, 0)];
+		if (nextBag) setActiveBagId(nextBag.id);
+	};
+
+	const chooseBag = (bag: GolfBag | string) => {
+		if (typeof bag !== 'string') bag = bag.id;
+
+		setActiveBagId(bag);
+	};
+
+	const updateBag = (updatedBag: GolfBag) => {
+		const updatedBags = [...bags];
+		const index = updatedBags.findIndex((b) => b.id === updatedBag.id);
+		updatedBags[index] = updatedBag;
 		setBags(updatedBags);
 	};
 
-	const chooseBag = (bag: GolfBag | number) => {
-		if (typeof bag !== 'number') bag = bags.findIndex(b => b === bag);
-
-		if (bag >= 0) setActiveBagIndex(bag);
-	};
-
-	return { bags, activeBag, chooseBag, addBag, removeBag };
+	return { bags, activeBag, chooseBag, updateBag, addBag, removeBag };
 }
 
 export function useGolfBag() {
 	const [bags, setBags] = useAtom(golfBagsAtom);
 	const [bag] = useAtom(activeBagAtom);
-	const [activeBagIndex, setActiveBagIndex] = useAtom(activeBagIndexAtom);
 
 	return { bag, setBagName, addClub, updateClub, removeClub };
 
 	function updateBag(updatedBag: GolfBag) {
 		const updatedBags = [...bags];
-		updatedBags[activeBagIndex] = updatedBag;
+		const index = updatedBags.findIndex((b) => b.id === updatedBag.id);
+		updatedBags[index] = updatedBag;
 		setBags(updatedBags);
 	}
 
@@ -60,13 +76,14 @@ export function useGolfBag() {
 	function addClub() {
 		if (!bag) return;
 
-		updateBag({ ...bag, clubs: [...bag.clubs, { name: '' }] });
+		updateBag({ ...bag, clubs: [...bag.clubs, { id: randId(), name: '' }] });
 	}
 
-	function updateClub(index: number, field: keyof Club, value: Club[keyof Club]) {
+	function updateClub(clubId: string, field: keyof Club, value: Club[keyof Club]) {
 		if (!bag) return;
 
 		const updatedClubs = [...bag.clubs];
+		const index = bag.clubs.findIndex((c) => c.id === clubId);
 		switch (field) {
 			case 'name':
 				updatedClubs[index].name = value as string;
@@ -81,10 +98,12 @@ export function useGolfBag() {
 		updateBag({ ...bag, clubs: updatedClubs });
 	}
 
-	function removeClub(club: Club) {
+	function removeClub(club: Club | string) {
 		if (!bag) return;
 
-		const updatedClubs = bag.clubs.filter((c) => c !== club);
+		if (typeof club !== 'string') club = club.id;
+
+		const updatedClubs = bag.clubs.filter((c) => c.id !== club);
 		updateBag({ ...bag, clubs: updatedClubs });
 	}
 }

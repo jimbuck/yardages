@@ -11,7 +11,7 @@ export function SideNav() {
 		<div className="flex h-full flex-col bg-background w-80">
       <nav className="flex flex-col gap-2 p-4">
         {bags.map((bag, index) => (
-          <button key={`${bag.name}_${index}`} onClick={() => chooseBag(index)} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground ${activeBag === bag ? 'bg-primary text-primary-foreground' : ''}`}>{bag.name} ({bag.clubs.length})</button>
+          <button key={`${bag.name}_${bag.id}`} onClick={() => chooseBag(bag.id)} className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground ${activeBag === bag ? 'bg-primary text-primary-foreground' : ''}`}>{bag.name} ({bag.clubs.length})</button>
         ))}
       </nav>
       <div className="mt-auto p-4">
