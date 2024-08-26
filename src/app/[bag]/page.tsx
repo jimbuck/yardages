@@ -19,7 +19,6 @@ export default function BagEditorPage({ params }: { params: { bag: string } }) {
   if (!bag) return (<p>Loading...</p>);
 
   return (<>
-    <h1 className="my-4 text-4xl font-extrabold leading-none tracking-tight print:hidden text-center">Custom Yardage Chart</h1>
     <div className="print:hidden">
       <BagEditor bagId={params.bag} />
     </div>

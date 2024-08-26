@@ -56,14 +56,14 @@ export function BagEditor({ bagId }: { bagId: string }) {
         <CardHeader>
           <CardTitle>
             <div className="flex flex-row justify-between">
-              <Input id="bag-name" className="ml-10 mr-2 text-2xl" value={bag.name} placeholder="e.g. My Golf Bag" onChange={e => setBagName(e.target.value)} />
+              <Input id="bag-name" className="mr-2 text-2xl" value={bag.name} placeholder="e.g. My Golf Bag" onChange={e => setBagName(e.target.value)} />
               <Button variant="destructive-outline" size="icon" onClick={() => removeBag(bag, true)} title={`Delete ${bag.name}`}>
                 <TrashIcon className="h-4 w-4" />
                 <span className="sr-only">Remove club</span>
               </Button>
             </div>
           </CardTitle>
-          <CardDescription className="pl-10">Enter your golf clubs and distances to generate a custom yardage chart.</CardDescription>
+          <CardDescription>Enter your golf clubs and distances to generate a custom yardage chart.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
