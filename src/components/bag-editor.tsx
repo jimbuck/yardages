@@ -6,19 +6,18 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, v
 import { CSS } from '@dnd-kit/utilities';
 import { restrictToVerticalAxis, restrictToParentElement } from '@dnd-kit/modifiers';
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useGolfBag, useGolfBags } from '@/hooks/golf-bags-hook';
 import { cn } from '@/lib/utils';
-import { Club } from '@/models';
+import { Club, GolfBag } from '@/models';
 import { DragHandleIcon, PlusIcon, TrashIcon } from './icons';
 
 export function BagEditor({ bagId }: { bagId: string }) {
   const { removeBag, updateBag } = useGolfBags();
   const { bag, setBagName, addClub } = useGolfBag(bagId);
-  const canSortBag = bag?.clubs.every(c => typeof c.carry === 'number') ?? false;
+
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -26,14 +25,6 @@ export function BagEditor({ bagId }: { bagId: string }) {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
-  const autoSortBag = () => {
-    if (!canSortBag || !bag) return;
-
-    const sortedClubs = [...bag.clubs].sort((a, b) => b.carry! - a.carry!);
-    // Update the bag with the sorted clubs
-    updateBag({ ...bag, clubs: sortedClubs });
-  };
 
   function handleDragEnd({ active, over }: DragEndEvent) {
     if (!bag || !over) return;
@@ -52,61 +43,51 @@ export function BagEditor({ bagId }: { bagId: string }) {
 
   return (
     <>
-      <Card className="w-full max-w-4xl mt-4 mx-auto">
-        <CardHeader>
-          <CardTitle>
-            <div className="flex flex-row justify-between">
-              <Input id="bag-name" className="mr-2 text-2xl" value={bag.name} placeholder="e.g. My Golf Bag" onChange={e => setBagName(e.target.value)} />
-              <Button variant="destructive-outline" size="icon" onClick={() => removeBag(bag, true)} title={`Delete ${bag.name}`}>
-                <TrashIcon className="h-4 w-4" />
-                <span className="sr-only">Remove club</span>
-              </Button>
-            </div>
-          </CardTitle>
-          <CardDescription>Enter your golf clubs and distances to generate a custom yardage chart.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-6">
-            <div className="grid grid-2">
-              <div className={`grid grid-cols-[auto_2fr_1fr_1fr_auto] gap-4 items-center`}>
-                <div className="grid gap-2 invisible">
-                  <DragHandleIcon />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Club Type</Label>
-                </div>
-                <div className="grid gap-2">
-                  <Label>Carry</Label>
-                </div>
-                <div className="grid gap-2">
-                  <Label>Total</Label>
-                </div>
-                <div className="grid gap-2">
-                  <Button variant="destructive-outline" size="icon" className="invisible">
-                    <TrashIcon className="h-4 w-4" />
-                    <span className="sr-only">Remove club</span>
-                  </Button>
-                </div>
+      <div className="mt-4 mx-auto px-4">
+        <div className="flex flex-row justify-between">
+          <Input id="bag-name" className="mr-2 text-2xl" value={bag.name} placeholder="e.g. My Golf Bag" onChange={e => setBagName(e.target.value)} />
+          <Button variant="destructive-outline" size="icon" onClick={() => removeBag(bag, true)} title={`Delete ${bag.name}`}>
+            <TrashIcon className="h-4 w-4" />
+            <span className="sr-only">Remove club</span>
+          </Button>
+        </div>
+        <p>Enter your golf clubs and distances to generate a custom yardage chart.</p>
+        <div className="grid gap-6">
+          <div className="grid grid-2">
+            <div className={`grid sm:grid-cols-[auto_2fr_1fr_1fr_auto] grid-cols-[2fr_1fr_1fr_auto] gap-4 items-center`}>
+              <div className="grid gap-2 invisible hidden sm:grid">
+                <DragHandleIcon />
               </div>
               <div className="grid gap-2">
-                <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[restrictToParentElement, restrictToVerticalAxis]}>
-                  <SortableContext items={bag.clubs} strategy={verticalListSortingStrategy}>
-                    {bag.clubs.map((club, index) => <ClubEditor key={club.id} bagId={bag.id} club={club} index={index} />)}
-                  </SortableContext>
-                </DndContext>
+                <Label>Club Type</Label>
+              </div>
+              <div className="grid gap-2">
+                <Label>Carry</Label>
+              </div>
+              <div className="grid gap-2">
+                <Label>Total</Label>
+              </div>
+              <div className="grid gap-2">
+                <Button variant="destructive-outline" size="icon" className="invisible">
+                  <TrashIcon className="h-4 w-4" />
+                  <span className="sr-only">Remove club</span>
+                </Button>
               </div>
             </div>
-            <Button onClick={addClub}>
-              <PlusIcon className="mr-2" onClick={() => addClub()} />
-              Add Club
-            </Button>
+            <div className="grid gap-2">
+              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[restrictToParentElement, restrictToVerticalAxis]}>
+                <SortableContext items={bag.clubs} strategy={verticalListSortingStrategy}>
+                  {bag.clubs.map((club, index) => <ClubEditor key={club.id} bagId={bag.id} club={club} index={index} />)}
+                </SortableContext>
+              </DndContext>
+            </div>
           </div>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="secondary" onClick={autoSortBag}>Sort By Yardage</Button>
-          <Button variant="outline">Share</Button>
-        </CardFooter>
-      </Card>
+          <Button onClick={addClub}>
+            <PlusIcon className="mr-2" onClick={() => addClub()} />
+            Add Club
+          </Button>
+        </div>
+      </div>
     </>
   );
 }
@@ -118,8 +99,8 @@ function ClubEditor({bagId, club, index, ...props}: { bagId: string, index: numb
   const style = { transform: CSS.Transform.toString(transform), transition };
   
   return (
-    <div ref={setNodeRef} style={style} className={`grid grid-cols-[auto_2fr_1fr_1fr_auto] gap-4 items-center`}>
-      <div ref={setActivatorNodeRef} className={cn('grid gap-2 cursor-grab')} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style} className={`grid sm:grid-cols-[auto_2fr_1fr_1fr_auto] grid-cols-[2fr_1fr_1fr_auto] gap-4 items-center`}>
+      <div ref={setActivatorNodeRef} className={cn('grid gap-2 hidden sm:grid cursor-grab')} {...attributes} {...listeners}>
         <DragHandleIcon />
       </div>
       <div className="grid gap-2">

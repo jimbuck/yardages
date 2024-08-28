@@ -1,16 +1,13 @@
 "use client";
 
-import { useGolfBag } from '@/hooks/golf-bags-hook';
-import { Club } from '@/models';
+import { Club, GolfBag } from '@/models';
 
 
-export function YardageChart({ bagId }: { bagId: string }) {
-	const { bag } = useGolfBag(bagId);
-
+export function YardageChart({ bag }: { bag: GolfBag }) {
 	if (!bag) return (<></>);
 
 	return (<>
-		<div className="p-2 pt-4 break-inside-avoid-page">
+		<div className="p-2 pt-4 break-inside-avoid-page w-fit mx-auto print:mx-0">
 			<table className="table-auto w-80">
 				<thead>
 					<tr className="text-lg text-primary">

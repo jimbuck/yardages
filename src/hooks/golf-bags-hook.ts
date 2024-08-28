@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation'
 
 import { Club, GolfBag, STANDARD_CLUBS } from '@/models';
 import { randId } from '@/lib/utils';
+import { useEffect } from 'react';
 
-export const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', []);
+export const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', [], undefined, { getOnInit: true });
 
 export function useGolfBags() {
 	const [bags, setBags] = useAtom(golfBagsAtom);
@@ -55,6 +56,8 @@ export function useGolfBag(bagId?: string) {
 	const [bags, setBags] = useAtom(golfBagsAtom);
 	const bag = bags.find(b => b.id === bagId);
 
+	useEffect(() => { }, []); // Forces CSR
+
 	return { bag, setBagName, addClub, updateClub, removeClub };
 
 	function updateBag(updatedBag: GolfBag) {
@@ -67,7 +70,7 @@ export function useGolfBag(bagId?: string) {
 	function setBagName(name: string) {
 		if (!bag) return;
 
-		updateBag({ ...bag, name });
+		updateBag({ ...bag, name: name.replaceAll('|', '') });
 	}
 
 	function addClub() {
@@ -83,7 +86,7 @@ export function useGolfBag(bagId?: string) {
 		const index = bag.clubs.findIndex((c) => c.id === clubId);
 		switch (field) {
 			case 'name':
-				updatedClubs[index].name = value as string;
+				updatedClubs[index].name = (value as string).replaceAll(/[_|]/gi, '');
 				break;
 			case 'carry':
 				updatedClubs[index].carry = value as number;

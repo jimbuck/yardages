@@ -18,6 +18,7 @@ import { BagList } from '@/components/bag-list';
 
 import "./globals.css";
 import { useParams, usePathname, useRouter } from 'next/navigation';
+import { withNoSSR } from '@/components/client-only';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,10 +40,10 @@ export default function RootLayout({
       <JotaiProvider store={store}>
         <body className={`${inter.className} flex flex-row h-svh`}>
           <SideNav />
-          <div className="w-full flex flex-col h-screen overflow-y-hidden">
+          <div className="w-full flex flex-col">
             {/* <DesktopHeader /> */}
             <MobileNav />
-            <div className="h-dvh mx-auto">{children}</div>
+            <div className="h-dvh w-full mx-auto overflow-y-scroll">{children}</div>
           </div>
         </body>
       </JotaiProvider>
@@ -50,7 +51,7 @@ export default function RootLayout({
   );
 }
 
-function SideNav() {
+const SideNav = withNoSSR(function () {
   const { addBag } = useGolfBags();
 
   return (<aside className="relative bg-emerald h-screen w-64 hidden sm:block">
@@ -62,19 +63,22 @@ function SideNav() {
     </div>
     <BagList className="text-white text-base font-semibold pt-3"
       linkClassName="py-4 pl-6 hover:bg-emerald-dark" />
-    <span className="absolute w-full bg-emerald-dark bottom-0 text-white flex items-center justify-center py-4">
-      Made with ❤️ by <a href="https://jimbuck.io" className="text-white hover:underline ml-1">Jim Buck</a>
-    </span>
+
+    <div className="absolute w-full bottom-0 pt-2">
+      <Link href="/print" className="block text-center bg-navy text-white font-semibold rounded-lg mx-4 py-2 items-center justify-center mb-2">
+        <FontAwesomeIcon icon={faPrint} className='mr-1' /> Print
+      </Link>
+      <MadeWithLove className="text-sm" />
+    </div>
   </aside>)
-}
+});
 
 const isMobileHeaderOpenAtom = atomWithStorage(
   "golf-yardage-chart:isMobileHeaderOpen",
   false
 );
 
-function MobileNav() {
-  const { activeBagId } = useParams();
+const MobileNav = withNoSSR(function () {
   const { addBag } = useGolfBags();
   const path = usePathname();
 
@@ -95,18 +99,19 @@ function MobileNav() {
     </div>
 
     {/* Dropdown Nav */}
-    <BagList className={cn('flex flex-col pt-4', isMobileHeaderOpen ? "flex" : "hidden")} linkClassName="py-2 pl-6" onClick={({ bag }) => bag.id !== activeBagId && setIsMobileHeaderOpen(false)}>
+    <BagList className={cn('flex flex-col pt-4', isMobileHeaderOpen ? "flex" : "hidden")} linkClassName="py-2 pl-6">
       <div className="grid grid-cols-[1fr_1fr] py-4 mx-4 gap-x-2">
-        <button className="bg-white block font-semibold rounded-lg px-4 py-2 items-center justify-center" onClick={() => addBag()}>
+        <button className="bg-navy text-white block font-semibold rounded-lg px-4 py-2 items-center justify-center" onClick={() => addBag()}>
           <FontAwesomeIcon icon={faPlus} className='mr-1' /> Add Bag
         </button>
-        <Link href="/print" onClick={() => setIsMobileHeaderOpen(false)} className="block text-center bg-white font-semibold rounded-lg px-4 py-2 items-center justify-center">
+        <Link href="/print" onClick={() => setIsMobileHeaderOpen(false)} className="block text-center bg-navy text-white font-semibold rounded-lg px-4 py-2 items-center justify-center">
           <FontAwesomeIcon icon={faPrint} className='mr-1' /> Print
         </Link>
       </div>
+      <MadeWithLove />
     </BagList>
   </header>);
-}
+});
 
 function DesktopHeader() {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
@@ -147,4 +152,9 @@ function DesktopHeader() {
       )}
     </div>
   </header>);
+}
+
+
+function MadeWithLove({ className }: { className?: string }) {
+  return <div className={cn('bg-emerald-dark text-white text-center py-2', className)}>Made with ❤️ by<a href="https://jimbuck.io" className="text-white hover:underline ml-1">Jim Buck</a></div>
 }

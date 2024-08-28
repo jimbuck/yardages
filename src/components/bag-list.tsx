@@ -11,7 +11,7 @@ import { GolfBag } from '@/models';
 
 export function BagList({ className, linkClassName, onClick, children }: PropsWithChildren<{ className?: string, linkClassName?: string, onClick?: (params: { bag: GolfBag, index: number, bags: GolfBag[], e: MouseEvent }) => void }>) {
 
-	const { bag: activeBagId } = useParams();
+	const { bagId: activeBagId } = useParams();
 	const { bags } = useGolfBags();
 
 	return <nav className={className}>
