@@ -32,7 +32,6 @@ export function useGolfBags() {
 			const index = bags.findIndex((b) => b.id === bag.id);
 			const nextBag = updatedBags[Math.max(index - 1, 0)];
 			if (nextBag) {
-				console.log(`Redirecting to bag ${nextBag.id}`);
 				router.replace(`/${nextBag.id}`);
 			}
 

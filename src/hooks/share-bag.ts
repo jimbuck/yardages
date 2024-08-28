@@ -30,9 +30,7 @@ export function useBagParser(raw: string) {
 	const [bag, setBag] = useState<GolfBag | null>(null);
 
 	useEffect(() => {
-		console.log('raw:', raw);
 		const [id, name, ...clubs] = raw.split(CLUB_SEPARATOR);
-		console.log({ id, name, clubs });
 		const parsedClubs = clubs.map(c => {
 			const [name, carry, total] = c.split(CLUB_PROPS_SEPARATOR);
 			return {
