@@ -80,7 +80,6 @@ export interface Club {
 	id: string;
 	name: string;
 	carry?: number;
-	total?: number;
 }
 
 export interface GolfBag {

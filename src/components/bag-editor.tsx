@@ -11,11 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useGolfBag, useGolfBags } from '@/hooks/golf-bags-hook';
 import { cn } from '@/lib/utils';
-import { Club, GolfBag } from '@/models';
+import { Club } from '@/models';
 import { DragHandleIcon, PlusIcon, TrashIcon } from './icons';
 
 export function BagEditor({ bagId }: { bagId: string }) {
-  const { removeBag, updateBag } = useGolfBags();
+  const { removeBag, updateBag, sortBag } = useGolfBags();
   const { bag, setBagName, addClub } = useGolfBag(bagId);
 
 
@@ -54,7 +54,7 @@ export function BagEditor({ bagId }: { bagId: string }) {
         <p>Enter your golf clubs and distances to generate a custom yardage chart.</p>
         <div className="grid gap-6">
           <div className="grid grid-2">
-            <div className={`grid sm:grid-cols-[auto_2fr_1fr_1fr_auto] grid-cols-[2fr_1fr_1fr_auto] gap-4 items-center`}>
+            <div className={`grid sm:grid-cols-[auto_2fr_1fr_auto] grid-cols-[2fr_1fr_auto] gap-4 items-center`}>
               <div className="grid gap-2 invisible hidden sm:grid">
                 <DragHandleIcon />
               </div>
@@ -63,9 +63,6 @@ export function BagEditor({ bagId }: { bagId: string }) {
               </div>
               <div className="grid gap-2">
                 <Label>Carry</Label>
-              </div>
-              <div className="grid gap-2">
-                <Label>Total</Label>
               </div>
               <div className="grid gap-2">
                 <Button variant="destructive-outline" size="icon" className="invisible">
@@ -82,10 +79,15 @@ export function BagEditor({ bagId }: { bagId: string }) {
               </DndContext>
             </div>
           </div>
-          <Button onClick={addClub}>
-            <PlusIcon className="mr-2" onClick={() => addClub()} />
-            Add Club
-          </Button>
+          <div className="flex justify-between pb-4">
+            <Button variant="outline" onClick={() => sortBag(bag)}>
+              Sort Clubs
+            </Button>
+            <Button onClick={addClub}>
+              <PlusIcon className="mr-2" onClick={() => addClub()} />
+              Add Club
+            </Button>
+          </div>
         </div>
       </div>
     </>
@@ -99,7 +101,7 @@ function ClubEditor({bagId, club, index, ...props}: { bagId: string, index: numb
   const style = { transform: CSS.Transform.toString(transform), transition };
   
   return (
-    <div ref={setNodeRef} style={style} className={`grid sm:grid-cols-[auto_2fr_1fr_1fr_auto] grid-cols-[2fr_1fr_1fr_auto] gap-4 items-center`}>
+    <div ref={setNodeRef} style={style} className={`grid sm:grid-cols-[auto_2fr_1fr_auto] grid-cols-[2fr_1fr_auto] gap-4 items-center`}>
       <div ref={setActivatorNodeRef} className={cn('grid gap-2 hidden sm:grid cursor-grab')} {...attributes} {...listeners}>
         <DragHandleIcon />
       </div>
@@ -115,16 +117,8 @@ function ClubEditor({bagId, club, index, ...props}: { bagId: string, index: numb
         <Input
           id={`club-carry-${index}`}
           type="number"
-          value={club.carry}
+          value={club.carry ?? ''}
           onChange={(e) => updateClub(club.id, "carry", e.target.value ? Number(e.target.value) : undefined)}
-        />
-      </div>
-      <div className="grid gap-2">
-        <Input
-          id={`club-total-${index}`}
-          type="number"
-          value={club.total}
-          onChange={(e) => updateClub(club.id, "total",  e.target.value ? Number(e.target.value) : undefined)}
         />
       </div>
       <div className="grid gap-2">

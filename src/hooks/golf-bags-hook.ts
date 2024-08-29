@@ -48,7 +48,16 @@ export function useGolfBags() {
 		setBags(updatedBags);
 	};
 
-	return { bags, updateBag, addBag, removeBag };
+	const sortBag = (bag: GolfBag) => {
+		const canSortBag = bag?.clubs.every(c => typeof c.carry === 'number') ?? false;
+		if (!canSortBag || !bag) return;
+
+		const sortedClubs = [...bag.clubs].sort((a, b) => b.carry! - a.carry!);
+		// Update the bag with the sorted clubs
+		updateBag({ ...bag, clubs: sortedClubs });
+	};
+
+	return { bags, updateBag, addBag, removeBag, sortBag };
 }
 
 export function useGolfBag(bagId?: string) {

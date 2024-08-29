@@ -10,6 +10,9 @@ export function BagQR({ bag }: { bag: GolfBag }) {
 
 	return (<div>
 		<QRCode value={bagLink} />
-		<a href={bagLink} target="_blank" rel="noreferrer" className="block text-center text-blue-500 underline">Share your Bag</a>
+		<div className="grid grid-cols-[1fr_1fr]">
+			<a href={bagLink} target="_blank" rel="noreferrer" className="block text-center text-blue-500 underline">Link</a>
+			<button onClick={() => navigator.share({ url: bagLink, text: bag.name, title: 'Yardage Chart' })} className="block text-center text-blue-500 underline">Share</button>
+		</div>
 	</div>);
 }

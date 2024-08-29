@@ -73,10 +73,7 @@ const SideNav = withNoSSR(function () {
   </aside>)
 });
 
-const isMobileHeaderOpenAtom = atomWithStorage(
-  "golf-yardage-chart:isMobileHeaderOpen",
-  false
-);
+const isMobileHeaderOpenAtom = atomWithStorage('golf-yardage-chart:isMobileHeaderOpen', false);
 
 const MobileNav = withNoSSR(function () {
   const { addBag } = useGolfBags();
