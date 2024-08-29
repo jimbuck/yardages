@@ -13,10 +13,9 @@ export function useBagSerializer(bag: GolfBag) {
 			bag.id,
 			_encodeName(bag.name),
 			...bag.clubs.map(c => {
-				if (!c.name || !(c.carry || c.total)) return null;
+				if (!c.name || !c.carry) return null;
 
-				const props = [_encodeName(c.name), c.carry || ''];
-				if (c.total) props.push(c.total);
+				const props = [_encodeName(c.name), c.carry];
 				return props.join(CLUB_PROPS_SEPARATOR);
 
 			})].filter(Boolean).join(CLUB_SEPARATOR);
@@ -32,12 +31,11 @@ export function useBagParser(raw: string) {
 	useEffect(() => {
 		const [id, name, ...clubs] = raw.split(CLUB_SEPARATOR);
 		const parsedClubs = clubs.map(c => {
-			const [name, carry, total] = c.split(CLUB_PROPS_SEPARATOR);
+			const [name, carry] = c.split(CLUB_PROPS_SEPARATOR);
 			return {
 				id: randId(),
 				name: _decodeName(name),
-				carry: carry ? parseInt(carry, 10) : null,
-				total: total ? parseInt(total, 10) : null
+				carry: carry ? parseInt(carry, 10) : null
 			} as Club;
 		});
 

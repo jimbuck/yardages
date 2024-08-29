@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { YardageChart } from '@/components/yardage-chart';
 import { useGolfBags } from '@/hooks/golf-bags-hook';
@@ -9,10 +9,11 @@ import { useBagParser } from '@/hooks/share-bag';
 import { cn } from '@/lib/utils';
 import { GolfBag } from '@/models';
 
-export default function ImportBag({ params }: { params: { data: string } }) {
+export default function ImportBag() {
 	const router = useRouter();
+	const searchParams = useSearchParams();
 
-	const bag = useBagParser(params.data);
+	const bag = useBagParser(searchParams.get('d') ?? '');
 	const { bags, addBag } = useGolfBags();
 
 	if (!bag) return (<p>Loading...</p>);
@@ -24,7 +25,7 @@ export default function ImportBag({ params }: { params: { data: string } }) {
 		<div className="flex flex-col justify-center max-w-sm mx-auto">
 			<h1 className="text-2xl">Import Bag?</h1>
 			<ul className={cn('hidden text-destructive', (bagExists || matchingName) && 'block')}>
-				{bagExists && <li><Link className="underline" href={`/${bag.id}`}>This bag already exists</Link> in your collection.</li>}
+				{bagExists && <li><Link className="underline" href={`/bag?id=${bag.id}`}>This bag already exists</Link> in your collection.</li>}
 				{(!bagExists && matchingName) && <li>You have another bag with the same name.</li>}
 			</ul>
 			<YardageChart bag={bag} />
@@ -38,6 +39,6 @@ export default function ImportBag({ params }: { params: { data: string } }) {
 	function saveBag(bag: GolfBag) {
 		if (matchingName) bag = { ...bag, name: `${bag.name} (${bag.id})` };
 		addBag(bag);
-		router.push(`/${bag.id}`);
+		router.push(`/bag?id=${bag.id}`);
 	}
 }

@@ -1,0 +1,10 @@
+{
+	"name": "Club Yardage Chart",
+	"short_name": "Yardages",
+	"icons": [],
+	"theme_color": "#095030",
+	"background_color": "#FFFFFF",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait"
+}

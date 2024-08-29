@@ -29,11 +29,11 @@ export function YardageChart({ bag, highlighted }: { bag: GolfBag, highlighted?:
 					{bag.clubs.map((club, i) => (
 						<tr key={i} className={cn("relative")}>
 							<td className={cn("border px-2", highlightedIds.length && 'bg-secondary', highlightedIds.includes(club.id) && 'bg-white')}>{club.name}</td>
-							<td className="border px-2">
+							<td className={cn("border px-2", highlightedIds.length && 'bg-secondary', highlightedIds.includes(club.id) && 'bg-white')}>
 								<ClubDist currClub={club} />
 							</td>
 							<td className="border pr-4 relative overflow-visible border-r-0 border-b-0">
-								<div className={`absolute left-0 -top-3 pr-2 text-right text-primary/60 bg-white w-full border-r ${i > 0 ? 'border-b' : ''} ${i === 1 ? 'border-t' : ''}`}>
+								<div className={cn(`absolute left-0 -top-3 pr-4 text-right text-primary/60 bg-white w-full`, i > 0 && 'border-b')}>
 									<ClubDiff prevClub={bag.clubs[i - 1]} currClub={club} />
 								</div>
 							</td>
@@ -82,11 +82,11 @@ export function InteractiveYardageChart({ bag }: { bag: GolfBag }) {
 		<div className="flex justify-center">
 			<YardageChart bag={bag} highlighted={[suggestedClub]} />
 			<div className="print:hidden pt-12 flex flex-col">
-				<div className="w-8 text-center">
+				<div className="w-8 text-center text-emerald font-bold">
 					{targetDistance}
 				</div>
 				<div className="flex-1 flex flex-col">
-					<input type="range" className="flex-1 rotate-180 [writing-mode:vertical-lr] target-range-input" min={minDistance} max={maxDistance} step="1" list="stock-club-distances" value={targetDistance} onChange={e => setTargetDistance(Number(e.target.value))} />
+					<input type="range" className="flex-1 [min-height:400px] rotate-180 [writing-mode:vertical-lr] target-range-input" min={minDistance} max={maxDistance} step="1" list="stock-club-distances" value={targetDistance} onChange={e => setTargetDistance(Number(e.target.value))} />
 					{/* <datalist id="stock-club-distances">
 						{bag.clubs.filter(c => c.carry).map(club => <option key={club.id} value={club.carry} />)}
 					</datalist> */}

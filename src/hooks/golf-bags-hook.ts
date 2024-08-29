@@ -22,7 +22,7 @@ export function useGolfBags() {
 			clubs: STANDARD_CLUBS.map(c => ({ id: randId(), name: c.name, carry: c.averageCarry })),
 		};
 
-		router.push(`/${bag.id}`);
+		router.push(`/bag?id=${bag.id}`);
 		setBags([...bags, bag]);
 	};
 	const removeBag = (bag: GolfBag, isCurrentBag: boolean) => {
@@ -32,7 +32,7 @@ export function useGolfBags() {
 			const index = bags.findIndex((b) => b.id === bag.id);
 			const nextBag = updatedBags[Math.max(index - 1, 0)];
 			if (nextBag) {
-				router.replace(`/${nextBag.id}`);
+				router.replace(`/bag?id=${nextBag.id}`);
 			}
 
 			setTimeout(() => setBags(updatedBags), 100);
@@ -62,9 +62,7 @@ export function useGolfBags() {
 
 export function useGolfBag(bagId?: string) {
 	const [bags, setBags] = useAtom(golfBagsAtom);
-	const bag = bags.find(b => b.id === bagId);
-
-	useEffect(() => { }, []); // Forces CSR
+	const bag = !bagId ? undefined : bags.find(b => b.id === bagId);
 
 	return { bag, setBagName, addClub, updateClub, removeClub };
 
@@ -98,9 +96,6 @@ export function useGolfBag(bagId?: string) {
 				break;
 			case 'carry':
 				updatedClubs[index].carry = value as number;
-				break;
-			case 'total':
-				updatedClubs[index].total = value as number;
 				break;
 		}
 		updateBag({ ...bag, clubs: updatedClubs });

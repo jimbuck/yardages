@@ -6,7 +6,7 @@ import { useBagSerializer } from '@/hooks/share-bag';
 export function BagQR({ bag }: { bag: GolfBag }) {
 	const serializeBag = useBagSerializer(bag);
 
-	const bagLink = `${window.origin}/import/${serializeBag}`;
+	const bagLink = `${window.origin}/i?d=${serializeBag}`;
 
 	return (<div>
 		<QRCode value={bagLink} />
