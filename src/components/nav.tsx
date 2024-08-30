@@ -25,9 +25,11 @@ export function SideNav({ bagId }: { bagId?: string }) {
 
 	return (<aside className="relative bg-emerald h-screen w-64 hidden sm:block">
 		<div className="p-6">
-			<Image src={icon} alt="Yardages Logo" width={128} height={128} className="mx-auto" />
-			<Link href="/" className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Yardages</Link>
-			<button className="w-full bg-navy text-white font-semibold py-2 mt-5 flex items-center justify-center" onClick={() => addBag()}>
+			<Link href="/" className="group">
+				<Image src={icon} alt="Yardages Logo" width={128} height={128} className="mx-auto" />
+				<h1 className="text-white text-3xl text-center font-semibold uppercase group-hover:text-gray-300">Yardages</h1>
+			</Link>
+			<button className="w-full bg-navy hover:bg-navy-light text-white font-semibold py-2 mt-5 flex items-center justify-center" onClick={() => addBag()}>
 				<FontAwesomeIcon icon={faPlus} className='mr-2' /> New Bag
 			</button>
 		</div>
@@ -35,7 +37,7 @@ export function SideNav({ bagId }: { bagId?: string }) {
 			linkClassName="py-4 pl-6 hover:bg-emerald-dark" />
 
 		<div className="absolute w-full bottom-0 pt-2">
-			<Link href="/print" className="block text-center bg-navy text-white font-semibold mx-4 py-2 items-center justify-center mb-2">
+			<Link href="/print" className="block text-center bg-navy hover:bg-navy-light text-white font-semibold mx-4 py-2 items-center justify-center mb-2">
 				<FontAwesomeIcon icon={faPrint} className='mr-1' /> Print
 			</Link>
 			<MadeWithLove />
@@ -69,10 +71,10 @@ export function MobileNav({ bagId }: { bagId?: string }) {
 		{/* Dropdown Nav */}
 		<BagList bags={bags} activeBag={bag} className={cn('flex flex-col pt-4', isMobileHeaderOpen ? "flex" : "hidden")} linkClassName="py-2 pl-6">
 			<div className="grid grid-cols-[1fr_1fr] py-4 mx-4 gap-x-2">
-				<button className="bg-navy text-white block font-semibold px-4 py-2 items-center justify-center" onClick={() => addBag()}>
+				<button className="bg-navy hover:bg-navy-light text-white block font-semibold px-4 py-2 items-center justify-center" onClick={() => addBag()}>
 					<FontAwesomeIcon icon={faPlus} className='mr-1' /> Add Bag
 				</button>
-				<Link href="/print" onClick={() => setIsMobileHeaderOpen(false)} className="block text-center bg-navy text-white font-semibold px-4 py-2 items-center justify-center">
+				<Link href="/print" onClick={() => setIsMobileHeaderOpen(false)} className="block text-center bg-navy hover:bg-navy-light text-white font-semibold px-4 py-2 items-center justify-center">
 					<FontAwesomeIcon icon={faPrint} className='mr-1' /> Print
 				</Link>
 			</div>

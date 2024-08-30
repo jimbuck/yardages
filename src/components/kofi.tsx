@@ -11,7 +11,7 @@ export function KoFiOverlay() {
 		<Donate
 			username={KOFI_USERNAME}
 			classNames={{
-				donateBtn: 'bg-navy text-white hover:bg-navy-lighter',
+				donateBtn: 'bg-navy text-white hover:bg-navy-light',
 				profileLink: ''
 			}}
 			styles={{
@@ -22,10 +22,8 @@ export function KoFiOverlay() {
 				panel: {}
 			}}
 			onToggle={(open) => {
-				console.log(`Donate panel ${open ? 'opened' : 'closed'}`)
-			}}
-		>
-			{KOFI_MESSAGE}
+				// console.log(`Donate panel ${open ? 'opened' : 'closed'}`)
+			}}>{KOFI_MESSAGE}
 		</Donate>
 	</>;
 }
