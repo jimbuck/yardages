@@ -1,13 +1,12 @@
 "use client";
+
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { useGolfBags } from '@/hooks/golf-bags-hook';
 
 
 export default function Home() {
-  const router = useRouter();
   const { bags, addBag } = useGolfBags();
 
   const [isCreatingNewBag, setIsCreatingNewBag] = useState(false);
@@ -15,8 +14,6 @@ export default function Home() {
   if (isCreatingNewBag) {
     return (<p className="p-4 text-center">Adding a new bag to get started...</p>);
   }
-
-  // return (<p className="p-4 text-center">Loading first bag...</p>);
 
   return (<>
     <div className="flex items-start justify-center min-h-full bg-gray-100">
@@ -29,7 +26,7 @@ export default function Home() {
         </p>
         <div className="flex flex-col">
           <button onClick={addNewBag} className="flex-1 bg-navy text-white px-4 py-2 hover:bg-navy-light">Create New Bag</button>
-          {bags.map(bag => <Link href={`/bag?id=${bag.id}`} className="flex-1 bg-emerald text-white px-4 py-2 mt-2 hover:bg-emerald-light">{bag.name}</Link>)}
+          {bags.map(bag => <Link key={bag.id} href={`/bag?id=${bag.id}`} className="flex-1 bg-emerald text-white px-4 py-2 mt-2 hover:bg-emerald-light">{bag.name}</Link>)}
         </div>
       </div>
     </div>
