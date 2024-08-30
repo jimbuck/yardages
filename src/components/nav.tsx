@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 import { atomWithStorage } from "jotai/utils";
 import { useAtom } from "jotai/react";
@@ -13,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { useGolfBag, useGolfBags } from '@/hooks/golf-bags-hook';
 import { BagList } from '@/components/bag-list';
 
-import { usePathname } from 'next/navigation';
+
 
 
 export function SideNav({ bagId }: { bagId?: string }) {
@@ -24,7 +26,7 @@ export function SideNav({ bagId }: { bagId?: string }) {
 		<div className="p-6">
 			<Link href="/" className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Club Yardage Chart</Link>
 			<button className="w-full bg-navy text-white font-semibold py-2 mt-5 flex items-center justify-center" onClick={() => addBag()}>
-				<FontAwesomeIcon icon={faPlus} className='mr-3' /> New Bag
+				<FontAwesomeIcon icon={faPlus} className='mr-2' /> New Bag
 			</button>
 		</div>
 		<BagList bags={bags} activeBag={bag} className="text-white text-base font-semibold pt-3"

@@ -1,7 +1,64 @@
 {
+	"id": "io.jimbuck.clubyardagechart",
 	"name": "Club Yardage Chart",
 	"short_name": "Yardages",
-	"icons": [],
+	"icons": [
+		{
+			"src": "/icon_512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon_192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon_144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon_96.png",
+			"sizes": "96x96",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon_48.png",
+			"sizes": "48x48",
+			"type": "image/png"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/screen_desktop_chart.png",
+			"sizes": "1920x945",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Yardage Chart"
+		},
+		{
+			"src": "/screen_desktop_editor.png",
+			"sizes": "1920x945",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Yardage Editor"
+		},
+		{
+			"src": "/screen_mobile_chart.png",
+			"sizes": "430x932",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Yardage Chart"
+		},
+		{
+			"src": "/screen_mobile_editor.png",
+			"sizes": "430x932",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Yardage Editor"
+		}
+	],
 	"theme_color": "#095030",
 	"background_color": "#FFFFFF",
 	"start_url": "/",

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { useGolfBags } from '@/hooks/golf-bags-hook';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Home() {
@@ -25,7 +27,9 @@ export default function Home() {
           Once a bag is selected, use the golf ball slider to quickly figure out which club to use for your next shot.
         </p>
         <div className="flex flex-col">
-          <button onClick={addNewBag} className="flex-1 bg-navy text-white px-4 py-2 hover:bg-navy-light">Create New Bag</button>
+          <button onClick={addNewBag} className="flex-1 bg-navy text-white px-4 py-2 hover:bg-navy-light">
+            <FontAwesomeIcon icon={faPlus} className='mr-2' /> New Bag
+          </button>
           {bags.map(bag => <Link key={bag.id} href={`/bag?id=${bag.id}`} className="flex-1 bg-emerald text-white px-4 py-2 mt-2 hover:bg-emerald-light">{bag.name}</Link>)}
         </div>
       </div>

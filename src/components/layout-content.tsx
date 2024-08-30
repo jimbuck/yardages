@@ -14,7 +14,7 @@ export function LayoutContent({ children }: PropsWithChildren<{}>) {
 		<SideNav bagId={bagId} />
 		<div className="w-full flex flex-col">
 			{/* <DesktopHeader /> */}
-			<MobileNav />
+			<MobileNav bagId={bagId} />
 			<div className="h-dvh w-full mx-auto overflow-y-auto sm:overflow-y-scroll">{children}</div>
 		</div>
 	</>)

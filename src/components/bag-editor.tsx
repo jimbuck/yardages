@@ -13,6 +13,8 @@ import { useGolfBag, useGolfBags } from '@/hooks/golf-bags-hook';
 import { cn } from '@/lib/utils';
 import { Club } from '@/models';
 import { DragHandleIcon, PlusIcon, TrashIcon } from './icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function BagEditor({ bagId }: { bagId: string }) {
   const { removeBag, updateBag, sortBag } = useGolfBags();
@@ -84,8 +86,7 @@ export function BagEditor({ bagId }: { bagId: string }) {
               Sort Clubs
             </Button>
             <Button onClick={addClub}>
-              <PlusIcon className="mr-2" onClick={() => addClub()} />
-              Add Club
+              <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Club
             </Button>
           </div>
         </div>

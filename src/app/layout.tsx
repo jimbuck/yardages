@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   generator: "Next.js",
   manifest: "/manifest.json",
   keywords: ["golf", "golf clubs", 'yardages', 'golf app', "pwa"],
+  themeColor: '#095030',
+  viewport: "width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover",
   authors: [
     {
       name: "Jim Buck",
@@ -41,14 +43,6 @@ export const metadata: Metadata = {
     url: SITE_DETAILS.URL,
     // image: "https://yardagechart.jimbuck.io/icons/apple-touch-icon.png",
   },
-};
-
-export const viewPort: Viewport = {
-  themeColor: "#095030",
-  width: "device-width",
-  initialScale: 1,
-  minimumScale: 1,
-  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
