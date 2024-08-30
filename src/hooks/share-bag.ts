@@ -1,3 +1,5 @@
+'use client';
+
 import { randId } from '@/lib/utils';
 import { Club, GolfBag } from '@/models';
 import { useEffect, useState } from 'react';

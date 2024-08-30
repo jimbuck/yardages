@@ -33,9 +33,9 @@ export default function BagPage() {
   return (<>
     <div className="w-full flex justify-center pt-4 px-2 sm:px-8">
       <div className="flex w-full max-w-md mx-auto">
-        <button className={cn('w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold rounded-l-lg border-r-0', pageMode === PageMode.Chart && 'bg-accent text-accent-foreground')} onClick={() => setPageMode(PageMode.Chart)}>Chart</button>
+        <button className={cn('w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold border-r-0', pageMode === PageMode.Chart && 'bg-accent text-accent-foreground')} onClick={() => setPageMode(PageMode.Chart)}>Chart</button>
         <button className={cn('w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold', pageMode === PageMode.Editor && 'bg-accent text-accent-foreground')} onClick={() => setPageMode(PageMode.Editor)}>Editor</button>
-        <button className={cn('w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold rounded-r-lg border-l-0', pageMode === PageMode.Share && 'bg-accent text-accent-foreground')} onClick={() => setPageMode(PageMode.Share)}>Share</button>
+        <button className={cn('w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold border-l-0', pageMode === PageMode.Share && 'bg-accent text-accent-foreground')} onClick={() => setPageMode(PageMode.Share)}>Share</button>
       </div>
     </div>
 

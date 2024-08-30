@@ -30,8 +30,8 @@ export default function ImportBag() {
 			</ul>
 			<YardageChart bag={bag} />
 			<div className="grid grid-cols-[1fr_1fr] gap-2">
-				<button className="border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold py-2 mt-5 rounded-lg flex items-center justify-center" onClick={() => router.push('/')}>Cancel</button>
-				<button className="border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold py-2 mt-5 rounded-lg flex items-center justify-center" onClick={() => saveBag(bag)}>{bagExists ? 'Update' : 'Import'}</button>
+				<button className="border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold py-2 mt-5 flex items-center justify-center" onClick={() => router.push('/')}>Cancel</button>
+				<button className="border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold py-2 mt-5 flex items-center justify-center" onClick={() => saveBag(bag)}>{bagExists ? 'Update' : 'Import'}</button>
 			</div>
 		</div>
 	);

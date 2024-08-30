@@ -6,9 +6,8 @@ import { useRouter } from 'next/navigation'
 
 import { Club, GolfBag, STANDARD_CLUBS } from '@/models';
 import { randId } from '@/lib/utils';
-import { useEffect } from 'react';
 
-export const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', [], undefined, { getOnInit: true });
+const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', [], undefined, { getOnInit: true });
 
 export function useGolfBags() {
 	const [bags, setBags] = useAtom(golfBagsAtom);

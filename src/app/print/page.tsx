@@ -31,6 +31,8 @@ export default function Print() {
 	</>);
 	
 	function toggleSelectedBag(bag: GolfBag, checked: boolean) {
+		'use client';
+
 		setSelectedBags({ ...selectedBags, [bag.id]: checked ? bag : null });
 	}
 }

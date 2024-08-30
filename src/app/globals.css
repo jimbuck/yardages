@@ -4,6 +4,10 @@
 
 @layer base {
   :root {
+    --emerald: #095030;
+    --navy: #051130;
+
+
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -91,26 +95,32 @@
 
 
 input.target-range-input {
-  --c: #095030; /* active color */
+  --c: var(--emerald); /* active color */
   --l: 8px; /* line thickness*/
-  --s: 20px; /* thumb size */
+  --s: 24px; /* thumb size */
   
-  --_c: color-mix(in srgb, var(--c), #000 var(--p,0%));
+  --_c: color-mix(in srgb, var(--c), var(--emerald) var(--p,0%));
   -webkit-appearance: none;
   appearance: none;
-  background: linear-gradient(0deg,#ababab 60%,#0000 0) 50%/10% calc(var(--l) - 1px) repeat-y;
+  background: linear-gradient(0deg, var(--navy) 60%, #0000 0) 50%/10% calc(var(--l) - 1px) repeat-y;
   cursor: pointer;
   overflow: hidden;
 }
 
 /* chromium */
-input[type="range" i].target-range-input::-webkit-slider-thumb{
+input[type="range" i].target-range-input::-webkit-slider-thumb {
   height: var(--s);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: white;
+  /* background: white;
   background-image: radial-gradient(circle at 1px 1px, black 1px, transparent 0);
-  background-size: 4px 4px;
+  background-size: 4px 4px; */
+
+  --dimple-size: 3px;
+  --g: radial-gradient(1px at 25% 50%,#aaa 96%,#0000);
+  background: var(--g),var(--g) var(--dimple-size) calc(var(--dimple-size)/2), white;
+  background-size: calc(2*var(--dimple-size)) var(--dimple-size);
+
   border: 1px solid #333;
   /* border-image: linear-gradient(var(--_c) 0 0) 0 0 0 1/calc(50% - var(--l)/2) 0 calc(50% - var(--l)/2) 100vw/0 0 0 100vw; */
   -webkit-appearance: none;

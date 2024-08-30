@@ -1,9 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
-import { useGolfBags } from '@/hooks/golf-bags-hook';
 import { cn } from '@/lib/utils';
 import { MouseEvent, PropsWithChildren } from 'react';
 import { GolfBag } from '@/models';
