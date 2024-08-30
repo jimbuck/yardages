@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 const CLUB_SEPARATOR = '!';
 const CLUB_PROPS_SEPARATOR = '_';
+const RANGE_BASE = 36;
 
 export function useBagSerializer(bag: GolfBag) {
 	const [serializedBag, setSerializedBag] = useState('');
@@ -17,7 +18,7 @@ export function useBagSerializer(bag: GolfBag) {
 			...bag.clubs.map(c => {
 				if (!c.name || !c.carry) return null;
 
-				const props = [_encodeName(c.name), c.carry];
+				const props = [_encodeName(c.name), c.carry.toString(RANGE_BASE)];
 				return props.join(CLUB_PROPS_SEPARATOR);
 
 			})].filter(Boolean).join(CLUB_SEPARATOR);
@@ -37,7 +38,7 @@ export function useBagParser(raw: string) {
 			return {
 				id: randId(),
 				name: _decodeName(name),
-				carry: carry ? parseInt(carry, 10) : null
+				carry: carry ? parseInt(carry, RANGE_BASE) : null
 			} as Club;
 		});
 
