@@ -53,10 +53,9 @@ export function BagEditor({ bagId }: { bagId: string }) {
             <span className="sr-only">Remove club</span>
           </Button>
         </div>
-        <p>Enter your golf clubs and distances to generate a custom yardage chart.</p>
         <div className="grid gap-6">
           <div className="grid grid-2">
-            <div className={`grid sm:grid-cols-[auto_2fr_1fr_auto] grid-cols-[2fr_1fr_auto] gap-4 items-center`}>
+            <div className={`grid sm:grid-cols-[auto_2fr_1fr_auto] grid-cols-[2fr_1fr_auto] gap-4 items-center text-left`}>
               <div className="grid gap-2 invisible hidden sm:grid">
                 <DragHandleIcon />
               </div>

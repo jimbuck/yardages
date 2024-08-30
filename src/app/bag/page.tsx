@@ -32,7 +32,7 @@ export default function BagPage() {
 
   return (<>
     <div className="flex items-start justify-center min-h-full bg-gray-100">
-      <div className="bg-white p-8 shadow-md w-full max-w-full w-fit sm:max-w-4xl text-center mt-2 sm:mt-8 mx-2 sm:mx-0">
+      <div className="bg-white p-4 shadow-md w-full max-w-full w-fit sm:max-w-4xl text-center mt-2 sm:mt-8 mx-2 sm:mx-0">
         <div className="w-full flex justify-center px-2 sm:px-8">
           <div className="flex w-full max-w-md mx-auto">
             <button className={cn('w-full py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground font-semibold border-r-0', pageMode === PageMode.Chart && 'bg-accent text-accent-foreground')} onClick={() => setPageMode(PageMode.Chart)}>Chart</button>
