@@ -19,7 +19,7 @@ export default function Home() {
 
   return (<>
     <div className="flex items-start justify-center min-h-full bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md max-w-md text-center mt-8 mx-2 sm:mx-0">
+      <div className="bg-white p-8 shadow-md text-center mt-8 mx-2 sm:mx-0 max-w-md">
         <h1 className="text-2xl font-bold mb-4">Welcome to Club Yard Chart!</h1>
         <p className="text-gray-700 mb-6">
           Track the distance you hit with each golf club and improve your game.

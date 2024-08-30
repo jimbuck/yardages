@@ -17,12 +17,12 @@ export function YardageChart({ bag, highlighted }: { bag: GolfBag, highlighted?:
 			<table className="table-auto w-80">
 				<thead>
 					<tr className="text-lg text-primary">
-						<th className="border" colSpan={4}>{bag.name}</th>
+						<th className="border" colSpan={2}>{bag.name}</th>
 					</tr>
 					<tr className='text-primary'>
-						<th className="border bg-zinc-600 px-2">Club</th>
-						<th className="border bg-zinc-600 px-2">Yards</th>
-						<th className="border bg-zinc-600 px-2">Diff</th>
+						<th className="border px-2">Club</th>
+						<th className="border px-2">Yards</th>
+						<th className="px-2 invisible">Diff</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,8 +32,8 @@ export function YardageChart({ bag, highlighted }: { bag: GolfBag, highlighted?:
 							<td className={cn("border px-2", highlightedIds.length && 'bg-secondary', highlightedIds.includes(club.id) && 'bg-white')}>
 								<ClubDist currClub={club} />
 							</td>
-							<td className="border pr-4 relative overflow-visible border-r-0 border-b-0">
-								<div className={cn(`absolute left-0 -top-3 pr-4 text-right text-primary/60 bg-white w-full`, i > 0 && 'border-b')}>
+							<td className={cn('border pr-4 relative overflow-visible border-r-0 border-b-0', i === 0 && 'border-t-0')}>
+								<div className={cn(`absolute left-0 -top-3 pr-4 text-right text-primary/60 bg-white w-full`, i > 0 && 'border-b', i === 1 && 'border-t')}>
 									<ClubDiff prevClub={bag.clubs[i - 1]} currClub={club} />
 								</div>
 							</td>
@@ -65,8 +65,8 @@ const targetDistanceAtom = atomWithStorage('golf-yardage-chart:targetDistance', 
 export function InteractiveYardageChart({ bag }: { bag: GolfBag }) {
 	const [targetDistance, setTargetDistance] = useAtom(targetDistanceAtom);
 
-	const minDistance = useMemo(() => Math.min(...bag.clubs.map(club => club.carry || 999)), [bag]) - 15;
-	const maxDistance = useMemo(() => Math.max(...bag.clubs.map(club => club.carry || 0)), [bag]) + 15;
+	const minDistance = useMemo(() => Math.max(Math.min(...bag.clubs.map(club => club.carry || 999)) - 10, 30), [bag]);
+	const maxDistance = useMemo(() => Math.min(Math.max(...bag.clubs.map(club => club.carry || 0)) + 10, 300), [bag]);
 
 	const suggestedClub = useMemo(() => {
 
@@ -81,8 +81,8 @@ export function InteractiveYardageChart({ bag }: { bag: GolfBag }) {
 	return (<>
 		<div className="flex justify-center">
 			<YardageChart bag={bag} highlighted={[suggestedClub]} />
-			<div className="print:hidden pt-12 flex flex-col">
-				<div className="w-8 text-center text-emerald font-bold">
+			<div className="print:hidden pt-4 flex flex-col">
+				<div className="w-8 text-center text-emerald font-bold text-xl">
 					{targetDistance}
 				</div>
 				<div className="flex-1 flex flex-col">

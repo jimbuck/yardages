@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -14,8 +14,9 @@ import { faPlus, faBars, faTimes, faPrint } from '@fortawesome/free-solid-svg-ic
 import { cn } from "@/lib/utils";
 import { useGolfBag, useGolfBags } from '@/hooks/golf-bags-hook';
 import { BagList } from '@/components/bag-list';
+import { KoFiOverlay } from '@/components/kofi';
 
-
+import icon from '../../public/icon_512.png';
 
 
 export function SideNav({ bagId }: { bagId?: string }) {
@@ -24,7 +25,8 @@ export function SideNav({ bagId }: { bagId?: string }) {
 
 	return (<aside className="relative bg-emerald h-screen w-64 hidden sm:block">
 		<div className="p-6">
-			<Link href="/" className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Club Yardage Chart</Link>
+			<Image src={icon} alt="Yardages Logo" width={128} height={128} className="mx-auto" />
+			<Link href="/" className="text-white text-3xl font-semibold uppercase hover:text-gray-300">Yardages</Link>
 			<button className="w-full bg-navy text-white font-semibold py-2 mt-5 flex items-center justify-center" onClick={() => addBag()}>
 				<FontAwesomeIcon icon={faPlus} className='mr-2' /> New Bag
 			</button>
@@ -36,7 +38,7 @@ export function SideNav({ bagId }: { bagId?: string }) {
 			<Link href="/print" className="block text-center bg-navy text-white font-semibold mx-4 py-2 items-center justify-center mb-2">
 				<FontAwesomeIcon icon={faPrint} className='mr-1' /> Print
 			</Link>
-			<MadeWithLove className="text-sm" />
+			<MadeWithLove />
 		</div>
 	</aside>)
 }
@@ -56,7 +58,7 @@ export function MobileNav({ bagId }: { bagId?: string }) {
 
 	return (<header className="w-full bg-emerald sm:hidden">
 		<div className={cn('flex items-center justify-between pt-5 px-6', !isMobileHeaderOpen && 'pb-4')}>
-			<Link href="/" className="text-white text-3xl font-semibold uppercase">Club Yard Chart</Link>
+			<Link href="/" className="text-white text-3xl font-semibold uppercase"><Image src={icon} alt="Yardages Logo" width={48} height={48} className="inline" /> Yardages</Link>
 			<button
 				onClick={() => setIsMobileHeaderOpen(isOpen => !isOpen)}
 				className="text-white text-3xl focus:outline-none" >
@@ -80,5 +82,10 @@ export function MobileNav({ bagId }: { bagId?: string }) {
 }
 
 function MadeWithLove({ className }: { className?: string }) {
-	return <div className={cn('bg-emerald-dark text-white text-center py-2', className)}>Made with ❤️ by<a href="https://jimbuck.io" className="text-white hover:underline ml-1">Jim Buck</a></div>
+	return <div className={cn('bg-emerald-dark text-white text-center py-2', className)}>
+		Made with ❤️ by<a href="https://jimbuck.io" className="text-white hover:underline ml-1">Jim Buck</a>
+		<div>
+			<KoFiOverlay />
+		</div>
+	</div>
 }

@@ -15,8 +15,9 @@ export default function Print() {
 	const [selectedBags, setSelectedBags] = useState<{ [bagId: string]: GolfBag | null }>(() => bags.reduce((acc, bag) => ({ ...acc, [bag.id]: bag }), {}));
 
 	return (<>
-    <h1 className="my-4 text-4xl font-extrabold leading-none tracking-tight print:hidden text-center">Custom Yardage Chart</h1>
-    <div className="print:hidden">
+		<div className="flex items-start justify-center min-h-full bg-gray-100">
+			<div className="bg-white p-8 shadow-md w-full max-w-full w-fit sm:max-w-4xl text-center mt-8 mx-2 sm:mx-0">
+				<div className="print:hidden">
 			{bags.map((bag, index) => (
 				<div key={`${bag.name}_${bag.id}`} className="bg-white p-4 mb-4">
 					<Input type="checkbox" id={`print-bag-${bag.name}_${bag.id}`} className="mr-2" checked={!!selectedBags[bag.id]} onChange={e => toggleSelectedBag(bag, e.target.checked)} />
@@ -28,6 +29,8 @@ export default function Print() {
     <div className="printable hidden flex flex-rows flex-wrap print:p-4 print:grid print:grid-cols-[1fr_1fr] print:gap-4 print:text-sm">
 			{Object.keys(selectedBags).map(bagId => selectedBags[bagId] && <YardageChart key={bagId} bag={selectedBags[bagId]} />)}
     </div>
+			</div>
+		</div>
 	</>);
 	
 	function toggleSelectedBag(bag: GolfBag, checked: boolean) {
