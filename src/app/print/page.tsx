@@ -16,7 +16,7 @@ export default function Print() {
 
 	return (<>
 		<div className="flex items-start justify-center min-h-full bg-gray-100">
-			<div className="bg-white p-8 shadow-md w-full max-w-full w-fit sm:max-w-4xl text-center mt-8 mx-2 sm:mx-0">
+			<div className="bg-white p-8 shadow-md w-full max-w-full w-fit sm:max-w-4xl text-center mt-2 sm:mt-8 mx-2 sm:mx-0">
 				<div className="print:hidden">
 			{bags.map((bag, index) => (
 				<div key={`${bag.name}_${bag.id}`} className="bg-white p-4 mb-4">

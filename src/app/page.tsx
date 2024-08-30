@@ -20,7 +20,7 @@ export default function Home() {
 
   return (<>
     <div className="flex items-start justify-center min-h-full bg-gray-100">
-      <div className="bg-white p-8 shadow-md text-center mt-8 mx-2 sm:mx-0 max-w-md">
+      <div className="bg-white p-8 shadow-md text-center mt-2 sm:mt-8 mx-2 sm:mx-0 max-w-md">
         <h1 className="text-2xl font-bold mb-4">Welcome to Yardages!</h1>
         <p className="text-gray-700 mb-6">
           Track the distance you hit with each golf club and improve your game. Get started by creating a new bag or selecting an existing one from the menu.

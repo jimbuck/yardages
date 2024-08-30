@@ -1,6 +1,6 @@
 {
-	"id": "io.jimbuck.clubyardagechart",
-	"name": "Club Yardage Chart",
+	"id": "io.jimbuck.yardages",
+	"name": "Yardages",
 	"short_name": "Yardages",
 	"icons": [
 		{
@@ -32,17 +32,24 @@
 	"screenshots": [
 		{
 			"src": "/screen_desktop_chart.png",
-			"sizes": "1920x945",
+			"sizes": "1920x911",
 			"type": "image/png",
 			"form_factor": "wide",
 			"label": "Yardage Chart"
 		},
 		{
 			"src": "/screen_desktop_editor.png",
-			"sizes": "1920x945",
+			"sizes": "1920x911",
 			"type": "image/png",
 			"form_factor": "wide",
 			"label": "Yardage Editor"
+		},
+		{
+			"src": "/screen_desktop_instructions.png",
+			"sizes": "1920x911",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Welcome Page"
 		},
 		{
 			"src": "/screen_mobile_chart.png",
@@ -57,10 +64,17 @@
 			"type": "image/png",
 			"form_factor": "narrow",
 			"label": "Yardage Editor"
+		},
+		{
+			"src": "/screen_mobile_instructions.png",
+			"sizes": "430x932",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Welcome Page"
 		}
 	],
 	"theme_color": "#095030",
-	"background_color": "#FFFFFF",
+	"background_color": "#f3f4f6",
 	"start_url": "/",
 	"display": "standalone",
 	"orientation": "portrait"
