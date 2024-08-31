@@ -2,7 +2,7 @@ import { execaSync } from 'execa';
 
 console.log(`Generating icons...`);
 
-const sizes = [512, 192, 144, 96, 72, 48];
+const sizes = [1024, 512, 192, 180, 144, 120, 96, 80, 72, 48];
 
 for (const size of sizes) {
 	console.log(`Generating icon_${size}.png...`);

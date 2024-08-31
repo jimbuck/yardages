@@ -1,7 +1,13 @@
 {
 	"id": "io.jimbuck.yardages",
 	"name": "Yardages",
+	"description": "Personal golf club yardage tracker.",
 	"short_name": "Yardages",
+	"theme_color": "#095030",
+	"background_color": "#f3f4f6",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait",
 	"icons": [
 		{
 			"src": "/maskable_icon_x512.png",
@@ -67,10 +73,5 @@
 			"form_factor": "narrow",
 			"label": "Welcome Page"
 		}
-	],
-	"theme_color": "#095030",
-	"background_color": "#f3f4f6",
-	"start_url": "/",
-	"display": "standalone",
-	"orientation": "portrait"
+	]
 }

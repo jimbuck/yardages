@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const SITE_DETAILS = {
   TITLE: "Yardages",
-  DESCRIPTION: "Golf club yardage tracker for mobile and printing.",
+  DESCRIPTION: "Personal golf club yardage tracker.",
   URL: "https://yardages.jimbuck.io",
 };
 
@@ -32,13 +32,15 @@ export const metadata: Metadata = {
     },
   ],
   icons: [
-    { rel: "icon", url: "icon_48.png" },
-    { rel: "icon", url: "icon_96.png" },
-    { rel: "icon", url: "icon_144.png" },
-    { rel: "icon", url: "icon_192.png" },
-    { rel: "icon", url: "icon_512.png" },
-    // { rel: "apple-touch-icon", url: "icons/icon-128x128.png" },
-    // { rel: "icon", url: "icons/icon-128x128.png" },
+    { rel: "icon", url: "maskable_icon_x48.png" },
+    { rel: "icon", url: "maskable_icon_x96.png" },
+    { rel: "icon", url: "maskable_icon_x144.png" },
+    { rel: "icon", url: "maskable_icon_x192.png" },
+    { rel: "icon", url: "maskable_icon_x512.png" },
+    { rel: "apple-touch-icon", url: "maskable_icon_x80.png" },
+    { rel: "apple-touch-icon", url: "maskable_icon_x120.png" },
+    { rel: "apple-touch-icon", url: "maskable_icon_x180.png" },
+    { rel: "apple-touch-icon", url: "maskable_icon_x1024.png" },
   ],
   openGraph: {
     type: "website",
