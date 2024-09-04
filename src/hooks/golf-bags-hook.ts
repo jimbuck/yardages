@@ -8,9 +8,11 @@ import { Club, GolfBag, STANDARD_CLUBS } from '@/models';
 import { randId } from '@/lib/utils';
 
 const golfBagsAtom = atomWithStorage<GolfBag[]>('golf-yardage-chart:golf-bags', [], undefined, { getOnInit: true });
+const defaultBagIdAtom = atomWithStorage<string | undefined>('golf-yardage-chart:default-bag-id', undefined, undefined, { getOnInit: true });
 
 export function useGolfBags() {
 	const [bags, setBags] = useAtom(golfBagsAtom);
+	const [defaultBagId, setDefaultBagId] = useAtom(defaultBagIdAtom);
 
 	const router = useRouter();
 
@@ -56,7 +58,7 @@ export function useGolfBags() {
 		updateBag({ ...bag, clubs: sortedClubs });
 	};
 
-	return { bags, updateBag, addBag, removeBag, sortBag };
+	return { bags, updateBag, addBag, removeBag, sortBag, defaultBagId, setDefaultBagId };
 }
 
 export function useGolfBag(bagId?: string) {

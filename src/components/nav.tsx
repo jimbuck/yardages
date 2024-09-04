@@ -25,7 +25,7 @@ export function SideNav({ bagId }: { bagId?: string }) {
 
 	return (<aside className="relative bg-emerald h-screen w-64 hidden sm:block">
 		<div className="p-6">
-			<Link href="/" className="group">
+			<Link href="/?stay" className="group">
 				<Image src={icon} alt="Yardages Logo" width={128} height={128} className="mx-auto" />
 				<h1 className="text-white text-3xl text-center font-semibold uppercase group-hover:text-gray-300">Yardages</h1>
 			</Link>
@@ -60,7 +60,7 @@ export function MobileNav({ bagId }: { bagId?: string }) {
 
 	return (<header className="w-full bg-emerald sm:hidden">
 		<div className={cn('flex items-center justify-between pt-5 px-6', !isMobileHeaderOpen && 'pb-4')}>
-			<Link href="/" className="text-white text-3xl font-semibold uppercase"><Image src={icon} alt="Yardages Logo" width={48} height={48} className="inline" /> Yardages</Link>
+			<Link href="/?stay" className="text-white text-3xl font-semibold uppercase"><Image src={icon} alt="Yardages Logo" width={48} height={48} className="inline" /> Yardages</Link>
 			<button
 				onClick={() => setIsMobileHeaderOpen(isOpen => !isOpen)}
 				className="text-white text-3xl focus:outline-none" >

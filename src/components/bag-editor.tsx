@@ -17,7 +17,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function BagEditor({ bagId }: { bagId: string }) {
-  const { removeBag, updateBag, sortBag } = useGolfBags();
+  const { removeBag, updateBag, sortBag, defaultBagId, setDefaultBagId } = useGolfBags();
   const { bag, setBagName, addClub } = useGolfBag(bagId);
 
 
@@ -87,6 +87,13 @@ export function BagEditor({ bagId }: { bagId: string }) {
             <Button onClick={addClub}>
               <FontAwesomeIcon icon={faPlus} className='mr-2' /> Add Club
             </Button>
+          </div>
+          <div className="flex justify-center pb-4">
+            <label className="inline-flex items-center cursor-pointer">
+              <input type="checkbox" className="sr-only peer" checked={defaultBagId === bag.id} onChange={(e) => setDefaultBagId(e.target.checked ? bag.id : undefined)} />
+              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-navy"></div>
+              <span className="ms-3 text-sm font-medium">Show on Start</span>
+            </label>
           </div>
         </div>
       </div>

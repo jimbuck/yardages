@@ -3,16 +3,25 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+
 import { useGolfBags } from '@/hooks/golf-bags-hook';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 
 
 export default function Home() {
-  const { bags, addBag } = useGolfBags();
+  const router = useRouter();
+  const { bags, addBag, defaultBagId } = useGolfBags();
+  const searchParams = useSearchParams();
 
   const [isCreatingNewBag, setIsCreatingNewBag] = useState(false);
+
+  if (defaultBagId && !searchParams.has('stay')) {
+    router.replace(`/bag?id=${defaultBagId}`);
+    return;
+  }
 
   if (isCreatingNewBag) {
     return (<p className="p-4 text-center">Adding a new bag to get started...</p>);
