@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Yardages Icon](./public/icon_72.png)
+# Yardages
+
+Yardages is a personal golf club yardage tracker that helps you keep track of the distance you hit with each golf club. This application allows you to create and manage golf bags, view club distances, and share your bags with others.
+
+## Features
+
+- **Create and Manage Golf Bags**: Add, update, and remove golf bags and clubs.
+- **Track Club Distances**: View the distance you hit with each club and adjust the target distance to find the right club for your next shot.
+- **Share Your Bags**: Share your golf bags with friends via QR code or share link.
+- **Print Yardage Charts**: Print yardage charts for easy reference on the course.
 
 ## Getting Started
 
-First, run the development server:
+Visit https://yardages.jimbuck.io to start using Yardages!
 
-```bash
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+## Built With
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Jotai](https://jotai.org/)
+- [FontAwesome](https://fontawesome.com/)
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+### Prerequisites
+
+- Node.js/npm
+
+### Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/jimbuck/yardages.git
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd yardages
+    ```
+3. Install dependencies:
+    ```sh
+    npm install
+    ```
+
+### Running the Application
+
+To start the development server, run:
+```sh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and navigate to `http://localhost:3000` to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+If a PR is merged in, new build will automatically be deployed to Vercel.
 
-## Learn More
+## Contact
 
-To learn more about Next.js, take a look at the following resources:
+For any inquiries, please contact [Jim Buck](https://jimbuck.io).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Enjoy using Yardages and improve your golf game!
