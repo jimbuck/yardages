@@ -2,8 +2,10 @@
 
 import { PropsWithChildren } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { DevTools } from 'jotai-devtools';
+import 'jotai-devtools/styles.css';
 
-
+import { store } from '@/hooks/store';
 import { MobileNav, SideNav } from '@/components/nav';
 
 export function LayoutContent({ children }: PropsWithChildren<{}>) {
@@ -11,6 +13,7 @@ export function LayoutContent({ children }: PropsWithChildren<{}>) {
 	const bagId = searchParams.get('id') ?? undefined;
 
 	return (<>
+		<DevTools store={store} />
 		<SideNav bagId={bagId} />
 		<div className="w-full flex flex-col">
 			{/* <DesktopHeader /> */}
